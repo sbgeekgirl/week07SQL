@@ -1,7 +1,10 @@
 package projects;
 
-import java.util.*;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
+
 import projects.entity.Project;
 import projects.exception.DbException;
 import projects.service.ProjectService;
@@ -58,6 +61,11 @@ public class ProjectsApp {
         return Objects.isNull(input) ? -1 : input;
     }
 
+    private boolean exitMenu() {
+        System.out.println("Exiting the menu.");
+        return true;
+    }
+
     private void printOperations(){
         System.out.println("\nThese are the available selections. Press the Enter key to quit:");
         operations.forEach(line -> System.out.println(" " + line));
@@ -99,11 +107,11 @@ public class ProjectsApp {
         project.setDifficulty(difficulty);
         project.setNotes(notes);
 
-        Project dbProject = ProjectService.addProject(project);
+        Project dbProject = projectService.addProject(project);
         System.out.println("You have successfully created project: " + dbProject);
     }
 
-    private  getDecimalInput(String prompt){
+    private BigDecimal getDecimalInput(String prompt){
         String input = getStringInput(prompt);
 
         if(Objects.isNull(input)) {
